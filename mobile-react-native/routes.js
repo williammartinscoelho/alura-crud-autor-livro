@@ -8,12 +8,51 @@ import LivrosList from './src/pages/LivrosList';
 import AutorForm from './src/pages/AutorForm';
 import LivroForm from './src/pages/LivroForm';
 
+const estiloHeader = {
+    headerStyle: {
+        backgroundColor: '#00AAE1'
+    },
+    headerTitleStyle: {
+        color: '#FFF'
+    }
+}
+
 const appNavigator = createStackNavigator({
-    Home,
-    AutoresList,
-    LivrosList,
-    AutorForm,
-    LivroForm
+    Home: {
+        screen: Home,
+        navigationOptions: {
+            title: `Home`,
+            ...estiloHeader
+        }
+    },
+    AutoresList: {
+        screen: AutoresList,
+        navigationOptions: {
+            title: "Lista de autores",
+            ...estiloHeader
+        }
+    },
+    LivrosList: {
+        screen: LivrosList,
+        navigationOptions: {
+            title: "Lista de livros",
+            ...estiloHeader
+        }
+    },
+    AutorForm: {
+        screen: AutorForm,
+        navigationOptions: {
+            title: "Novo autor",
+            ...estiloHeader
+        }
+    },
+    LivroForm: {
+        screen: LivroForm,
+        navigationOptions: {
+            title: "Novo livro",
+            ...estiloHeader
+        }
+    },
 });
 
 export default createAppContainer(appNavigator);
