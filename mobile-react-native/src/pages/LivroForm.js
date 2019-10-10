@@ -44,7 +44,7 @@ export default function LivroForm({ navigation }) {
             "preco": preco,
             "autorId": selectedAutor
         }
-        
+
         console.log(data);
 
         api.post('/livros', data)
@@ -108,13 +108,13 @@ export default function LivroForm({ navigation }) {
 
                 <View style={estilos.row}>
                     <TouchableNativeFeedback onPress={handleCancel}>
-                        <View style={[estilos.btn, estilos.btnDanger]}>
+                        <View style={[estilos.btn, estilos.btnDanger, { marginRight: 10 }]}>
                             <Text style={estilos.btnText}>Cancelar</Text>
                         </View>
                     </TouchableNativeFeedback>
 
                     <TouchableNativeFeedback onPress={handleSubmit}>
-                        <View style={[estilos.btn, estilos.btnPrimary]}>
+                        <View style={[estilos.btn, estilos.btnPrimary, { marginLeft: 10 }]}>
                             <Text style={estilos.btnText}>Salvar</Text>
                         </View>
                     </TouchableNativeFeedback>
@@ -138,20 +138,18 @@ const estilos = StyleSheet.create({
         marginBottom: 5
     },
     input: {
-        height: 42,
-        flexGrow: 1,
+        height: 50,
         paddingHorizontal: 10,
-        marginBottom: 25,
+        marginBottom: 30,
         color: '#fff',
         backgroundColor: '#1B2530',
     },
     row: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
     },
     btn: {
         height: 50,
-        width: 135,
+        flex: 1,
         borderRadius: 3,
         justifyContent: 'center',
         alignItems: 'center',

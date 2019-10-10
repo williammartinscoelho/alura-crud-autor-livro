@@ -12,6 +12,8 @@ export default function AutoresList({ navigation }) {
     useEffect(() => {
         function loadAutores() {
             console.log('Carregando autores...');
+            setLoading(true);
+
             api.get('/autores')
                 .then((response) => {
                     setAutores(response.data.reverse());
@@ -22,6 +24,9 @@ export default function AutoresList({ navigation }) {
                     navigation.navigate('Home');
 
                     console.log(error.message);
+                })
+                .finally(() => {
+                    setLoading(false);
                 });
         }
 
@@ -36,8 +41,9 @@ export default function AutoresList({ navigation }) {
             <FlatList
                 style={loading ? { display: 'none' } : { display: 'flex' }}
                 data={autores}
+                keyExtractor={(item) => item.id + ""}
                 renderItem={({ item }) => (
-                    <View style={estilos.card} key={item.id}>
+                    <View style={estilos.card}>
                         <View>
                             <View style={estilos.boxImg}>
                                 <Image source={user} style={estilos.img} />
@@ -46,13 +52,16 @@ export default function AutoresList({ navigation }) {
 
                         <View style={{ flexGrow: 1, paddingHorizontal: 10 }}>
                             <View style={{ flexDirection: 'row' }}>
-                                <Text style={estilos.nome}>{item.nome.trim()}</Text>
+                                <Text style={estilos.nome}>
+                                    {item.nome.trim()}
+                                </Text>
                             </View>
 
-                            <Text style={estilos.email}>{item.email.trim()}</Text>
+                            <Text style={estilos.email}>
+                                {item.email.trim()}
+                            </Text>
                         </View>
                     </View>
-
                 )}
             />
         </SafeAreaView>

@@ -43,8 +43,9 @@ export default function LisvrosList({ navigation }) {
             <FlatList
                 style={loading ? { display: 'none' } : { display: 'flex' }}
                 data={livros}
+                keyExtractor={item => item.id + ""}
                 renderItem={({ item }) => (
-                    <View style={estilos.card} key={item.id}>
+                    <View style={estilos.card}>
                         <View>
                             <View style={estilos.boxImg}>
                                 <Image source={book} style={estilos.img} />
@@ -114,7 +115,7 @@ const estilos = StyleSheet.create({
     },
     mostrarLoading: {
         display: 'flex',
-        color:'#fff',
+        color: '#fff',
         fontSize: 18,
         padding: 20,
         alignSelf: 'center'

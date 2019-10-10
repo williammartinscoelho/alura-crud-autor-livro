@@ -25,14 +25,14 @@ export default function Home({ navigation }) {
         <SafeAreaView style={estilos.container}>
             <View style={estilos.row}>
                 <TouchableNativeFeedback onPress={handleButtonAutorForm}>
-                    <View style={estilos.card}>
+                    <View style={[estilos.card, {marginRight: 10}]}>
                         <Image source={user} style={estilos.img} />
                         <Text style={estilos.label}>Novo autor</Text>
                     </View>
                 </TouchableNativeFeedback>
 
                 <TouchableNativeFeedback onPress={handleButtonAutorList}>
-                    <View style={estilos.card}>
+                    <View style={[estilos.card, {marginLeft: 10}]}>
                         <Image source={user} style={estilos.img} />
                         <Text style={estilos.label}>Autores</Text>
                     </View>
@@ -41,14 +41,14 @@ export default function Home({ navigation }) {
 
             <View style={estilos.row}>
                 <TouchableNativeFeedback onPress={handleButtonLivroForm}>
-                    <View style={estilos.card}>
+                    <View style={[estilos.card, {marginRight: 10}]}>
                         <Image source={book} style={estilos.img} />
                         <Text style={estilos.label}>Novo livro</Text>
                     </View>
                 </TouchableNativeFeedback>
 
                 <TouchableNativeFeedback onPress={handleButtonLivroList}>
-                    <View style={estilos.card}>
+                    <View style={[estilos.card, {marginLeft: 10}]}>
                         <Image source={book} style={estilos.img} />
                         <Text style={estilos.label}>Livros</Text>
                     </View>
@@ -68,15 +68,14 @@ const estilos = StyleSheet.create({
 
     row: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 19
+        marginBottom: 20,
     },
 
     card: {
         backgroundColor: '#1B2530',
         borderRadius: 5,
-        width: 155,
-        height: 155,
+        paddingVertical: 20,
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center'
     },
