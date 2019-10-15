@@ -5,8 +5,8 @@ import router from './router';
 import './assets/css/pure-min.css';
 import './assets/css/side-menu.css';
 
-import Loading from './components/Loading.vue';
-Vue.component('loading', Loading);
+import LoadingPage from './components/LoadingPage.vue';
+Vue.component('LoadingPage', LoadingPage);
 
 
 Vue.config.productionTip = false;
