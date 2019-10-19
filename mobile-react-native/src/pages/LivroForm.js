@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TextInput, Picker, Alert, TouchableNativeFeedback } from 'react-native';
+import {
+    ActivityIndicator,
+    Alert,
+    Keyboard,
+    KeyboardAvoidingView,
+    SafeAreaView,
+    StyleSheet,
+    Picker,
+    Text,
+    TextInput,
+    TouchableNativeFeedback,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 
 import api from '../api';
 
 export default function LivroForm({ navigation }) {
     const [loading, setLoading] = useState(true);
+    const [loadingSubmit, setLoadingSubmit] = useState(false);
+    const [labelBtn, setLabelBtn] = useState('Salvar');
 
     const [titulo, setTitulo] = useState('');
     const [preco, setPreco] = useState('');
-    const [autorId, setAutorId] = useState('');
     const [selectedAutor, setSelectedAutor] = useState('');
 
     const [autores, setAutores] = useState([]);
@@ -39,6 +53,10 @@ export default function LivroForm({ navigation }) {
 
 
     function handleSubmit() {
+        Keyboard.dismiss();
+        setLabelBtn('Salvando...');
+        setLoadingSubmit(true);
+
         const data = {
             "titulo": titulo,
             "preco": preco,
@@ -50,12 +68,14 @@ export default function LivroForm({ navigation }) {
         api.post('/livros', data)
             .then(() => {
                 Alert.alert('Salvo', 'Seu livro foi salvo com sucesso!');
+                clearForm();
             })
             .catch((error) => {
                 Alert.alert('Erro ao salvar', error.message);
             })
             .finally(() => {
-
+                setLabelBtn('Salvar');
+                setLoadingSubmit(false);
             });
     }
 
@@ -63,14 +83,22 @@ export default function LivroForm({ navigation }) {
         navigation.navigate('Home');
     }
 
+    function clearForm() {
+        setTitulo('');
+        setPreco('');
+        setSelectedAutor(0);
+    }
+
 
     return (
         <SafeAreaView style={estilos.container}>
-            <Text style={loading ? estilos.mostrarLoading : { display: 'none' }}>
-                Carregando dados...
-            </Text>
+            <KeyboardAvoidingView behavior="padding" style={estilos.content}>
 
-            <View style={loading ? { display: 'none' } : { display: 'flex' }}>
+                <View style={loading ? estilos.mostrarLoading : { display: 'none' }}>
+                    <Text style={{ color: '#FFF' }}>Carregando autores... </Text>
+                    <ActivityIndicator size="small" color="rgb(000, 170, 255)" />
+                </View>
+
 
                 <Text style={estilos.label}>Titulo</Text>
                 <TextInput
@@ -115,12 +143,21 @@ export default function LivroForm({ navigation }) {
 
                     <TouchableNativeFeedback onPress={handleSubmit}>
                         <View style={[estilos.btn, estilos.btnPrimary, { marginLeft: 10 }]}>
-                            <Text style={estilos.btnText}>Salvar</Text>
+                            <Text style={estilos.btnText}>
+                                {labelBtn}
+                            </Text>
+
+                            <ActivityIndicator
+                                size="small"
+                                color="#FFF"
+                                style={[{ marginLeft: 10 }, loadingSubmit ? { display: 'flex' } : { display: 'none' }]}
+                            />
                         </View>
                     </TouchableNativeFeedback>
                 </View>
 
-            </View>
+
+            </KeyboardAvoidingView>
         </SafeAreaView>
     );
 }
@@ -131,12 +168,23 @@ const estilos = StyleSheet.create({
         backgroundColor: '#0F171E',
         padding: 15,
     },
+
+    content: {
+        display: 'flex',
+        flex: 1,
+    },
+
+    row: {
+        flexDirection: 'row',
+    },
+
     label: {
         fontWeight: 'bold',
         color: '#fff',
         fontSize: 15,
-        marginBottom: 5
+        marginBottom: 5,
     },
+
     input: {
         height: 50,
         paddingHorizontal: 10,
@@ -144,12 +192,11 @@ const estilos = StyleSheet.create({
         color: '#fff',
         backgroundColor: '#1B2530',
     },
-    row: {
-        flexDirection: 'row',
-    },
+
     btn: {
         height: 50,
         flex: 1,
+        flexDirection: 'row',
         borderRadius: 3,
         justifyContent: 'center',
         alignItems: 'center',
@@ -160,18 +207,17 @@ const estilos = StyleSheet.create({
     },
 
     btnDanger: {
-        backgroundColor: '#DC3545'
+        backgroundColor: '#DC3545',
     },
 
     btnText: {
         color: '#fff',
     },
+
     mostrarLoading: {
         display: 'flex',
-        color: '#fff',
-        fontSize: 18,
+        flexDirection: 'row',
         padding: 20,
-        alignSelf: 'center'
+        alignSelf: 'center',
     }
-
 });

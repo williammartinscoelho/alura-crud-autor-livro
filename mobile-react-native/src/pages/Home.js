@@ -23,7 +23,7 @@ export default function Home({ navigation }) {
 
     return (
         <SafeAreaView style={estilos.container}>
-            <View style={estilos.row}>
+            {/* <View style={estilos.row}>
                 <TouchableNativeFeedback onPress={handleButtonAutorForm}>
                     <View style={[estilos.card, {marginRight: 10}]}>
                         <Image source={user} style={estilos.img} />
@@ -37,9 +37,7 @@ export default function Home({ navigation }) {
                         <Text style={estilos.label}>Autores</Text>
                     </View>
                 </TouchableNativeFeedback>
-            </View>
-
-            <View style={estilos.row}>
+        
                 <TouchableNativeFeedback onPress={handleButtonLivroForm}>
                     <View style={[estilos.card, {marginRight: 10}]}>
                         <Image source={book} style={estilos.img} />
@@ -53,6 +51,42 @@ export default function Home({ navigation }) {
                         <Text style={estilos.label}>Livros</Text>
                     </View>
                 </TouchableNativeFeedback>
+            </View> */}
+
+            <View style={estilos.content}>
+                <View style={estilos.cardBox}>
+                    <TouchableNativeFeedback onPress={handleButtonAutorForm}>
+                        <View style={estilos.card}>
+                            <Image source={user} style={estilos.img} />
+                            <Text style={estilos.label}>Novo autor</Text>
+                        </View>
+                    </TouchableNativeFeedback>
+
+                    <TouchableNativeFeedback onPress={handleButtonAutorList}>
+                        <View style={estilos.card}>
+                            <Image source={user} style={estilos.img} />
+                            <Text style={estilos.label}>Autores</Text>
+                        </View>
+                    </TouchableNativeFeedback>
+
+                    <TouchableNativeFeedback onPress={handleButtonLivroForm}>
+                        <View style={estilos.card}>
+                            <Image source={book} style={estilos.img} />
+                            <Text style={estilos.label}>Novo livro</Text>
+                        </View>
+                    </TouchableNativeFeedback>
+
+                    <TouchableNativeFeedback onPress={handleButtonLivroList}>
+                        <View style={estilos.card}>
+                            <Image source={book} style={estilos.img} />
+                            <Text style={estilos.label}>Livros</Text>
+                        </View>
+                    </TouchableNativeFeedback>
+                </View>
+            </View>
+
+            <View style={estilos.footer}>
+                <Text style={estilos.footerText}> © 2019 - William Martins</Text>
             </View>
         </SafeAreaView>
     );
@@ -62,22 +96,30 @@ const estilos = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#0F171E',
-        padding: 15,
-        justifyContent: 'center'
+        paddingVertical: 15,
     },
 
-    row: {
+    content: {
+        //backgroundColor: 'red',
+        flex: 1,
+        justifyContent: "center"
+    },
+
+    cardBox: {
+        //backgroundColor: 'green',
         flexDirection: 'row',
-        marginBottom: 20,
+        flexWrap: 'wrap',
     },
 
     card: {
         backgroundColor: '#1B2530',
-        borderRadius: 5,
+        borderRadius: 10,
         paddingVertical: 20,
+        margin: 10,
         flex: 1,
+        flexBasis: 150,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     img: {
         height: 64,
@@ -87,5 +129,16 @@ const estilos = StyleSheet.create({
     label: {
         color: '#fff',
         fontSize: 20,
+    },
+
+    footer: {
+        alignItems: 'center',
+        //backgroundColor: 'blue'
+    },
+
+    footerText: {
+        color: "#FFF"
     }
+
+
 });

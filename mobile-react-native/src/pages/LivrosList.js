@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, FlatList, Image, Alert } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, FlatList, Image, Alert, ActivityIndicator } from 'react-native';
 
 import api from '../api';
 
@@ -36,9 +36,11 @@ export default function LisvrosList({ navigation }) {
 
     return (
         <SafeAreaView style={estilos.container}>
-            <Text style={loading ? estilos.mostrarLoading : { display: 'none' }}>
-                Carregando dados...
-            </Text>
+            <View style={loading ? estilos.mostrarLoading : { display: 'none' }}>
+                <Text style={{color: '#FFF'}}>Carregando dados... </Text>
+                <ActivityIndicator size="small" color="rgb(000, 170, 255)" />
+            </View>
+
 
             <FlatList
                 style={loading ? { display: 'none' } : { display: 'flex' }}
@@ -115,8 +117,7 @@ const estilos = StyleSheet.create({
     },
     mostrarLoading: {
         display: 'flex',
-        color: '#fff',
-        fontSize: 18,
+        flexDirection: 'row',
         padding: 20,
         alignSelf: 'center'
     }
